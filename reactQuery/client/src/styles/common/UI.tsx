@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     flex-direction: column;
     overflow-x: hidden;
   }
@@ -34,6 +34,7 @@ export const AuthForm = styled.form`
     background-color: transparent;
     padding: 5px;
     font-size: 20pt;
+    color: var(--fontColor);
     outline: none;
 
     &::placeholder {
@@ -63,7 +64,7 @@ export const Nav = styled.div`
   background-color: var(--bgColor);
   z-index: 1;
 
-  @media screen and (min-width: 601px) {
+  @media screen and (min-width: 801px) {
     height: 100vh;
     width: 50px;
     border-right: 1px solid var(--fontColor);
@@ -73,7 +74,7 @@ export const Nav = styled.div`
     padding-bottom: 5px;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     width: 100vw;
     padding-right: 5px;
     border-bottom: 1px solid var(--fontColor);

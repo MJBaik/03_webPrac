@@ -58,6 +58,10 @@ export const CalendarCss = createGlobalStyle`
   border: 1px solid #a0a096;
   font-family: Arial, Helvetica, sans-serif;
   /* line-height: 1.125em; */
+
+  @media screen and (max-width: 800px) {
+    width: 100vw;
+  }
 }
 
 
@@ -153,37 +157,38 @@ export const CalendarCss = createGlobalStyle`
 }
 
 .react-calendar__tile:disabled {
-  background-color: #f0f0f0  !important;
+  background-color: #f0f0f078  !important;
   color: #ababab !important;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth:disabled,
 .react-calendar__decade-view__years__year--neighboringDecade:disabled,
 .react-calendar__century-view__decades__decade--neighboringCentury:disabled {
-  color: #cdcdcd  !important;
+  color: #cdcdcd7a  !important;
 }
 
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  background-color: #e6e6e6  !important;
+  background-color: #e6e6e64b  !important;
 }
 
 .react-calendar__tile--now {
   position: relative;
 
   &:before {
-    content: "today";
+    content: " ";
     position: absolute;
-    top: 10px;
-    right: 5px;
-    color: var(--main);
-    left: calc(40% - 2.5px);
+    top: 28px;
+    left: 5px;
+    height: 2px;
+    width: 25px;
+    background-color: var(--main);
   }
 }
 
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-  background: #ffffa9;
+  /* background: #ffffa9; */
 }
 
 .react-calendar__tile--hasActive {
@@ -206,18 +211,31 @@ export const CalendarCss = createGlobalStyle`
   background: #a9d4ff;
 }
 
-.react-calendar__tile--active {
-  background: #006edc;
-  color: white;
-}
+
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #1087ff;
 }
 
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: var(--grey);
+}
+
+.hasDone {
+  &:after {
+    content: "✓";
+    position: absolute;
+    color: var(--main);
+    width: 40px;
+    height: 10px;
+    top: 10px;
+    left: 30px;
+  }
+}
+
+.hasDue {
+  color: var(--main) !important;
+  /* border: 1px solid var(--grey) !important; */
 }
 
 `;

@@ -6,7 +6,7 @@ export const Sidebar = styled.div`
   background-color: var(--bgColor);
   z-index: 1;
 
-  @media screen and (min-width: 601px) {
+  @media screen and (min-width: 801px) {
     left: 50px;
     width: 300px;
     height: 100vh;
@@ -19,7 +19,7 @@ export const Sidebar = styled.div`
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     top: 50px;
     width: 100vw;
     height: 100vh;
@@ -68,11 +68,12 @@ export const Sidebar = styled.div`
   }
 
   .padding {
-    height: 209px;
+    height: 0px;
     width: 100%;
     position: absolute;
     left: 0;
     top: 176px;
+    transition: height 0.3s ease;
 
     &:before {
       content: " ";
@@ -88,6 +89,8 @@ export const Sidebar = styled.div`
     }
 
     &.none {
+      height: 209px;
+
       &:before {
         margin-top: 0;
         max-height: 100%;
@@ -99,7 +102,7 @@ export const Sidebar = styled.div`
 export const GridCalendar = styled.div`
   display: grid;
 
-  @media screen and (min-width: 601px) {
+  @media screen and (min-width: 801px) {
     width: calc(100% - 50px);
     margin-left: 52px;
 
@@ -107,7 +110,7 @@ export const GridCalendar = styled.div`
     grid-template-rows: repeat(5, auto);
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     height: calc(100vh - 50px);
     margin-top: 50px;
     grid-template-columns: repeat(3, auto);
@@ -136,10 +139,19 @@ export const GridCalendar = styled.div`
       bottom: 5px;
       text-align: right;
       word-break: break-all;
+      color: ${(props) => props.theme.color.grey}A7;
     }
 
     &:hover {
       background-color: var(--grey);
+    }
+
+    &:nth-child(9),
+    &:nth-child(10),
+    &:nth-child(11) {
+      .word {
+        color: var(--fontColor);
+      }
     }
   }
 `;

@@ -4,14 +4,14 @@ export const Sidebar = styled.div`
   background-color: var(--bgColor);
   z-index: 1;
 
-  @media screen and (min-width: 601px) {
+  @media screen and (min-width: 801px) {
     margin-left: 50px;
     width: 300px;
     height: 100vh;
     border-right: 2px solid var(--fontColor);
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     top: 51px;
     width: 100vw;
     height: 100vh;
@@ -78,13 +78,12 @@ export const Sidebar = styled.div`
 export const ContentWrapper = styled.div`
   display: flex;
 
-  @media screen and (min-width: 601px) {
+  @media screen and (min-width: 801px) {
     width: calc(100% - 350px);
   }
 
-  @media screen and (max-width: 600px) {
-    height: calc(100vh - 50px);
-    margin-top: 50px;
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
   }
 `;
 
@@ -92,10 +91,21 @@ export const TodoWrapper = styled.div`
   width: 300px;
   height: 100vh;
   border-right: 2px solid var(--fontColor);
+
+  @media screen and (max-width: 800px) {
+    margin-top: 3px;
+    width: 100vw;
+    height: fit-content;
+  }
 `;
 
 export const TodoListWrapper = styled.div`
   width: 300px;
+
+  @media screen and (max-width: 800px) {
+    width: 100vw;
+  }
+
   .title {
     width: 100%;
     background-color: var(--fontColor);
@@ -109,7 +119,8 @@ export const TodoListWrapper = styled.div`
     margin-top: 3px;
     width: 100%;
     display: flex;
-    height: 40px;
+    height: fit-content;
+    min-height: 40px;
     border-top: 1px solid var(--fontColor);
     border-bottom: 1px solid var(--fontColor);
 
@@ -160,7 +171,7 @@ export const TodoListWrapper = styled.div`
 
       &:before {
         left: 10%;
-        top: 70%;
+        top: 68%;
         width: 50%;
         transform: rotate(45deg);
       }
@@ -220,6 +231,15 @@ export const DoneList = styled.div`
 
     &:hover {
       text-decoration: line-through;
+    }
+
+    &.todo {
+      color: var(--main);
+      font-weight: bold;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 `;

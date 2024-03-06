@@ -10,6 +10,7 @@ function Signup() {
   const [password2, setPassword2] = useState("");
   const { mutate: signupMutate } = useSignup();
 
+  // 회원가입
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signupMutate({ username, email, nickname, password1, password2 });
@@ -48,7 +49,7 @@ function Signup() {
         id="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="eamil@example.com"
+        placeholder="email@example.com"
       />
       <label htmlFor="nickname">닉네임</label>
 

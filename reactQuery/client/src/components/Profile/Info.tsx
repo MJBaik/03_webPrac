@@ -7,6 +7,8 @@ function Info({ data }: { data: UserInterface }) {
 
   return (
     <>
+      <p>수정예정</p>
+      <p>프로필사진 수정 가능</p>
       <div>{data.nickname}</div>
       <div>{data.username}</div>
       <div>{data.email}</div>

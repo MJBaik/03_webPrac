@@ -25,6 +25,7 @@ export const AddTodoForm = styled.form`
     padding: 5px;
     font-size: 20pt;
     outline: none;
+    color: var(--fontColor);
 
     &::placeholder {
       color: var(--grey);

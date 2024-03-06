@@ -1,20 +1,17 @@
 export const light = {
   color: {
     bgColor: "#ece9e7",
-    fontColor: "#000",
+    fontColor: "#252422dc",
     grey: "#aaa8a7",
-    main: "#0508e4",
-  },
-  font: {
-    lotte: "LOTTERIADDAG",
+    main: "#347c0a",
   },
 };
 
 export const dark = {
   color: {
-    bgColor: "#17171a",
-    fontColor: "#fff",
+    bgColor: "#2b2927",
+    fontColor: "#ffffffed",
     grey: "#868484",
-    main: "#090caf",
+    main: "#ff724fe6",
   },
 };

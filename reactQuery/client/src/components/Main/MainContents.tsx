@@ -1,6 +1,7 @@
 import React from "react";
 import { ContentWrapper } from "../../styles/Main/Components";
 import { useGetTodos } from "../../hooks/todo";
+import RecogSpeech from "./RecogSpeech.jsx";
 
 import TodoList from "./TodoList";
 import CalendarSection from "./CalendarSection";
@@ -14,6 +15,7 @@ function MainContents() {
     <ContentWrapper>
       <TodoList todos={data} />
       <CalendarSection todos={data} />
+      {/* <RecogSpeech /> */}
     </ContentWrapper>
   );
 }

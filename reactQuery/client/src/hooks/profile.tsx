@@ -8,6 +8,7 @@ import { customAxios } from "../util/customAxios";
 import { UserInterface } from "../interfaces/UserInterfce";
 import { useSetUpdate } from "../stores/ProfileStore";
 
+// 프로필 가져오기 api
 export const useGetProfile = () => {
   return useQuery({
     queryKey: ["getProfile"],
@@ -17,6 +18,7 @@ export const useGetProfile = () => {
   });
 };
 
+// 프로필 업데이트 api
 export const useUpdatProfile = () => {
   const queryClient = useQueryClient();
   const setIsUpdating = useSetUpdate();

@@ -22,6 +22,7 @@ function TodoList({ todos }: { todos: GetTodoProps[] }) {
     <TodoWrapper>
       <TodoListWrapper>
         <div className="title">할 일 목록</div>
+        {/* 미완료 todo list 출력 */}
         {todos &&
           todos.map((each) => {
             if (each.completed_at) return;
@@ -46,7 +47,7 @@ function TodoList({ todos }: { todos: GetTodoProps[] }) {
                   }}
                 ></button>
                 <div className="content">
-                  <div className="duedate">due to: {each.due_date}</div>
+                  <div className="duedate">due date: {each.due_date}</div>
                   <div className="todoitem">{each.content}</div>
                 </div>
               </div>

@@ -1,16 +1,14 @@
 import React from "react";
 import { GridCalendar } from "../../styles/Intro/Grid";
-import { useTheme } from "styled-components";
 
-type Props = {};
-
-function IntroContent({}: Props) {
-  const theme = useTheme();
+function IntroContent() {
+  // 캘린더 채우기용 랜덤글자
   const words =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi tenetur voluptate aliquam voluptates corporis rem quidem consequuntur obcaecati sit explicabo rem eos minima, quod repudiandae atque libero, quas distinctio magni nam.".split(
+    "Lorem ipsum dolor sit amet consectetur Calendar Todo. App tenetur voluptate aliquam voluptates corporis rem quidem consequuntur obcaecati sit explicabo rem eos minima, quod repudiandae atque libero, quas distinctio magni nam.".split(
       " "
     );
 
+  // 각 칸 랜덤 스타일 객체
   const styles = {
     fontSize: ["18pt", "32pt", "28pt", "24pt"],
     fontFamliy: [
@@ -23,6 +21,7 @@ function IntroContent({}: Props) {
 
   return (
     <GridCalendar>
+      {/* 캘린더 그리드 */}
       {[...Array(window.innerWidth <= 600 ? 36 : 35)].map((each, idx) => (
         <div className="item" key={idx}>
           <div className="date">

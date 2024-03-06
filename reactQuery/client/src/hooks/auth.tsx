@@ -3,11 +3,12 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { useAuthActions } from "../stores/AuthStore";
+import { useAuthActions, useSetisSignup } from "../stores/AuthStore";
 import { signUpParams, logInParms } from "../interfaces/AuthInterface";
 
+// 회원가입 api
 export const useSignup = () => {
-  const navigate = useNavigate();
+  const setIsSignup = useSetisSignup();
 
   return useMutation({
     mutationFn: (payload: signUpParams) =>
@@ -15,10 +16,10 @@ export const useSignup = () => {
 
     onSuccess: (res) => {
       if (res.status == 204) {
-        navigate("/login");
+        setIsSignup(false);
       } else if (res.status == 400) {
         for (const err of Object.keys(res.data)) {
-          console.log(res.data[err][0]);
+          alert(res.data[err][0]);
         }
       }
     },
@@ -29,6 +30,7 @@ export const useSignup = () => {
   });
 };
 
+// 로그인 api
 export const useLogin = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ export const useLogin = () => {
         navigate("/");
       } else if (res.status == 400) {
         for (const err of Object.keys(res.data)) {
-          console.log(res.data[err][0]);
+          alert("아이디 및 비밀번호를 확인해주세요.");
         }
       }
     },
@@ -54,6 +56,7 @@ export const useLogin = () => {
   });
 };
 
+// 로그아웃 api
 export const useLogout = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();

@@ -9,6 +9,7 @@ function TodoForm() {
   const [isRepeated, setIsRepeated] = useState(false);
   const { mutate: addTodo } = useCreateTodo();
 
+  // todo 작성 함수
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (content == "") return;

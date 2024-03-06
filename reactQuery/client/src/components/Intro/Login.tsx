@@ -7,6 +7,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const { mutate: loginMutate } = useLogin();
 
+  // 로그인 함수
   const loginHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     loginMutate({ username, password });
