@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+<style>
+  body {
+    background-image: url("{% static "images/bar.jpg" %}");
+    font-family: 'Raleway', sans-serif;
+  }
+ 
+  .fa-solid:hover, #createBtn:hover, .selected {
+    color: rgb(255, 0, 111);
+  }
+
+</style>
+{% endblock style %}
+
+
+{% block content %}
+{% verbatim  %}
+
+<div style="height:100%; background-color: #0000007f;">
+  <div class="container">
+    <div class="row" id="recipe-box">
+      <div class="recipe-box col-lg-8 col-12">
+        <div class="recipe-inner-box">
+          <div class="col col-12 mb-5 d-flex justify-content-between">
+            <button @click.prevent="importRandom" id="createBtn" type="submit"><i class="fa-solid fa-lemon fa-lg"></i></button>
+            <div>
+              <button v-if="isCreated" style="background: transparent; color:whitesmoke; text-align:center; border: none;"  @click.prevent="saveRecipe">
+                <i class="fa-solid fa-heart fa-lg" :class="{'selected': isLiked }"></i>
+              </button>
+              <button style="background: transparent; color:whitesmoke; border: none;" @click="showSave=!showSave, showSearch=false">
+                <i class="fa-solid fa-martini-glass-citrus fa-lg" :class="{'selected': showSave}"></i>
+              </button>
+              <button style="background: transparent; color:whitesmoke; border: none;" @click="showSearch=!showSearch, showSave=false">
+                <i class="fa-solid fa-magnifying-glass fa-lg" :class="{'selected': showSearch}"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="row col-12 resultBox">
+            <div class="col col-lg-4 col-12 mb-5 d-flex justify-content-center align-item-center">
+              <img :src="imageUrl" :alt="drinkName" class="cocktail-image">
+            </div>
+            <div class="col col-lg-8 col-12 cocktail-detail">
+              <h1 class="fw-bold ms-3">{{ drinkName }} <p style="font-size:10px; display:inline;" v-show="isAlcoholic">A</p></h1>
+              <p class="ms-3 fw-bold" v-if="isCreated">Ingredients</p>
+              <ul id="ingredList"></ul>
+            </div>
+            <div v-text="drinkDescription" class="col col-12 cocktail-description m-3 mt-5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="saved-recipe col-lg-4 col-12" v-show="showSave">
+        <div v-if="savedRecipes.length != 0" style="color: whitesmoke; font-weight:bold;" class="mb-2 d-flex justify-content-start align-items-center">
+          <i class="fa-regular fa-lemon mx-2" style="color: #ffdc2e;"></i> {{ savedRecipes.length }}
+        </div>
+        <template v-for="recipe in savedRecipes" :key=recipe.idDrink>
+          <div class="card bg-dark mb-3" data-status="saved" @click.prevent="loadRecipe($event)">
+            <img class="card-img" style="position: relative; object-fit:cover;" :src=recipe.strDrinkThumb>
+            <button class="card-btn d-flex justify-content-center align-items-center">{{ recipe.strDrink }}</button>            
+          </div>
+        </template>
+        <div v-if="savedRecipes.length == 0" style="width:100; height:100%;" class="d-flex justify-content-center align-items-center">
+          <p style="color:whitesmoke;">No saved recipes</p>
+        </div>
+      </div>
+
+      <div class="saved-recipe col-lg-4 col-12" v-show="showSearch">
+        <button @click="searchByName=!searchByName" style="font-size:12px; background: transparent; color:whitesmoke; border: none;">{{ searchByName? 'by Name':'by Ingreds' }}</button>
+        <form @submit.prevent="searchRecipe()" id="search" class="d-flex justify-content-between">
+          <input v-model="sWord" class="col-10 mx-1 mb-3" style="outline:none; border: none; border-bottom: 2px white solid; background-color:transparent; color:white;">
+          <button class="col-1  mb-3" type="submit" style="background: transparent; color:whitesmoke; border: none;">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+        <template v-for="recipe in searchedRecipes" :key=recipe.idDrink>
+          <div class="card bg-dark mb-3" data-status="searched" @click.prevent="loadRecipe($event)">
+            <img class="card-img" style="position: relative; object-fit:cover;" :src=recipe.strDrinkThumb>
+            <button class="card-btn d-flex justify-content-center align-items-center">{{ recipe.strDrink }}</button>            
+          </div>
+        </template>
+        <div v-if="searchedRecipes == undefined" style="width:100; height:100%;" class="d-flex justify-content-center align-items-center">
+          <p style="color:whitesmoke;">No search result Found</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endverbatim  %}
+{% endblock content %}
+
+
+{% block script %}
+<script>
+  
+const createBtn = document.querySelector('#createBtn')
+const { createApp, ref, onMounted, watch } = Vue
+const APIKEY = // document에 기재된 테스트용 API 입력 혹은 API 발급받아서 사용
+
+
+const recipe = createApp({
+  setup(){
+    const isCreated = ref(false)
+    const isLiked = ref(false)
+    const showSave = ref(false)
+    const showSearch = ref(false)
+    const drinkName = ref('')
+    const imageUrl = ref('')
+    const drinkDescription = ref('')
+    const recipeData = ref({})
+    const savedRecipes = ref([])
+    const searchedRecipes = ref([])
+    const sWord = ref('')
+    const searchByName = ref(true)
+    const isAlcoholic = ref(false)
+
+
+    // 저장된 레시피 리스트 불러오기
+    const callRecieps = function(){
+      savedRecipes.value = []
+      for (let i = 0; i < localStorage.length; i++){
+        const data = JSON.parse(localStorage.getItem(Object.keys(localStorage)[i]))
+        savedRecipes.value.push(data)
+      }
+    }
+
+    onMounted(() => {
+      callRecieps()
+    })
+
+
+    // 저장
+    const saveRecipe = function() {
+      if (localStorage.getItem(drinkName.value)) {
+        localStorage.removeItem(drinkName.value)
+        isLiked.value = false
+      } else {
+        localStorage.setItem(drinkName.value, JSON.stringify(recipeData.value))
+        isLiked.value = true
+      }
+      callRecieps()
+    }  
+    
+    // 불러오기
+    const loadRecipe = function(event) {
+      let drink = event.target.textContent
+      
+      axios.get(`https://www.thecocktaildb.com/api/json/v1/${APIKEY}/search.php?s=${drink}`)
+        .then(res => {
+          let response = res.data.drinks[0]
+          recipeData.value = response
+          fillData()
+    })
+  }
+
+    // 랜덤 레시피 생성
+    const importRandom = function() {
+      axios.get(`https://www.thecocktaildb.com/api/json/v1/${APIKEY}/random.php`)
+        .then(res => {
+          let response = res.data.drinks[0]
+          recipeData.value = response
+          console.log(response)
+          fillData()
+        })
+      }
+
+
+    // 검색
+    const searchRecipe = function() {
+      if (searchByName.value) {
+        axios.get(`https://www.thecocktaildb.com/api/json/v1/${APIKEY}/search.php?s=${sWord.value}`)
+        .then(res => {
+          searchedRecipes.value = res.data.drinks
+        })
+      } else {
+        axios.get(`https://www.thecocktaildb.com/api/json/v1/${APIKEY}/filter.php?i=${sWord.value}`)
+        .then(res => {
+          searchedRecipes.value = res.data.drinks
+        })
+      }
+    }
+
+
+    // BODY 내용 입력
+    const fillData = function() {
+      const ingredList = document.querySelector('#ingredList')
+      ingredList.innerHTML=''
+      isCreated.value = true
+      drinkName.value = recipeData.value.strDrink
+      imageUrl.value = recipeData.value.strDrinkThumb
+      drinkDescription.value = recipeData.value.strInstructions
+      isLiked.value = localStorage.getItem(drinkName.value) ? true : false
+      isAlcoholic.value = recipeData.value.strAlcoholic == 'Alcoholic' ? true : false
+
+      for (let i = 1; i < 16; i++) {
+        if (recipeData.value['strIngredient'+i]) {
+          const li = document.createElement('li')
+          li.innerText = `${recipeData.value['strIngredient'+i]} - ${recipeData.value['strMeasure'+i] == null? 'By taste':recipeData.value['strMeasure'+i]}`
+          ingredList.appendChild(li)
+        }
+      }
+    }
+    
+    return { 
+      isCreated, 
+      recipeData, 
+      drinkName, 
+      imageUrl, 
+      loadRecipe, 
+      importRandom, 
+      drinkDescription, 
+      saveRecipe, 
+      isLiked, 
+      savedRecipes, 
+      showSave,
+      showSearch,
+      searchedRecipes,
+      searchRecipe,
+      sWord,
+      searchByName,
+      isAlcoholic,
+    }
+
+  }
+}).mount('#recipe-box')
+    
+</script>
+{% endblock script %}

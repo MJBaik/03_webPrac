@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+<style>
+  body {
+    background-size: cover;
+    background-position: center;
+  }
+</style>
+{% endblock style %}
+
+{% block content %}
+<div style="height:100vh; background-color: #0000007f;" class="d-flex justify-content-center align-items-center">
+  <a href="{% url "cocktails:recipes" %}">
+    <button class="title">Drink!</button>
+  </a>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script>
+
+  document.querySelector('body').style.backgroundImage = "url('https://source.unsplash.com/random/800x600/?cocktail')"
+
+  {% comment %} const bgImages = ['url("{% static "images/cocktail-1.jpg" %}")',
+                    'url("{% static "images/cocktail-2.jpg" %}")',
+                    'url("{% static "images/cocktail-3.jpg" %}")',
+                    'url("{% static "images/cocktail-4.jpg" %}")',
+                    'url("{% static "images/cocktail-5.jpg" %}")',
+                    'url("{% static "images/cocktail-6.jpg" %}")',
+                    'url("{% static "images/cocktail-7.jpg" %}")',]
+
+  const bgImg = _.sample(bgImages) {% endcomment %}
+  {% comment %} document.querySelector('body').style.backgroundImage = bgImg {% endcomment %}
+
+</script>
+{% endblock script %}
