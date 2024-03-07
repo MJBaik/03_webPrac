@@ -25,6 +25,7 @@ const Wrapper = styled.section`
   }
 `;
 
+// 소개문에 들어가는 카드
 export const Card = styled.div`
   align-self: flex-end;
   width: 65vw;
@@ -64,12 +65,14 @@ export const Card = styled.div`
   }
 `;
 
+// 소개문섹션
 export const Section1 = styled(Wrapper)`
   height: 500vh;
   padding-top: 20vh;
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
 
   @media screen and (max-width: 500px) {
     padding-top: 0;

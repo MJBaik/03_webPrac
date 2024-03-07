@@ -18,6 +18,7 @@ function Intro() {
   const [section, setSection] = useState(0);
   const outerRef = useRef<HTMLDivElement>(null);
 
+  // 마우스 클릭 효과
   const buttonEffect =
     "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん".split(
       ""
@@ -41,6 +42,7 @@ function Intro() {
     setId((prev) => prev + 1);
   };
 
+  // 스크롤 시 섹션 변경 (스크롤 효과용)
   const scrollHandler = () => {
     if (window.scrollY < window.innerHeight * 0.8) {
       setSection(0);
@@ -67,7 +69,7 @@ function Intro() {
   return (
     <Outer ref={outerRef}>
       <Nav>
-        <div className="appName">TokiDoki</div>
+        <div className="appName">TalkyDoki</div>
         <div style={{ display: "flex" }}>
           <button className="login">로그인</button>
           <button className="login">회원가입</button>

@@ -10,11 +10,13 @@ function Main() {
   const [isS1End, setIsS1End] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
 
+  // 섹션 변경 함수
   const wheelHandler = (e: WheelEvent) => {
     e.preventDefault();
     if (!isLoaded) return;
 
     if (now.current < 2 && e.deltaY > 0) {
+      // 스크롤 색칠 이벤트 진행중일 시 아래로 내려가지 못하게 이벤트 중지
       if (now.current == 1 && !isS1End) return;
 
       const next = document.getElementById(
@@ -52,9 +54,11 @@ function Main() {
 
   return (
     <Wrapper>
+      {/* 사이드 Nav Bar */}
       <Sidebar>
         <div className="circle" style={{ top: `${top}px` }}></div>
       </Sidebar>
+      {/* 섹션 1 */}
       <Section id="section0" className="wVideo">
         <h1>제목</h1>
         <div>
@@ -123,11 +127,13 @@ function Main() {
           className="bgVideo"
         />
       </Section>
+      {/* 섹션 2: 단어 색칠 */}
       <Section id="section1">
         <Card className={now.current == 1 ? "active" : undefined}>
           <WordBreak setIsS1End={setIsS1End} />
         </Card>
       </Section>
+      {/* 섹션 3 */}
       <Section id="section2">
         <Card className={now.current == 2 ? "active" : undefined}>
           <h1>Section 3</h1>

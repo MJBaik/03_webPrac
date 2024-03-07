@@ -89,7 +89,7 @@ function Header() {
         <div className="coma">
           <div className="text">
             <div className="kr">
-              <span className="name">토키도키</span>와 함께라면
+              야! 너두
               <br />
               <span className="jp">일본어</span>로
               <br />말 할 수 있어

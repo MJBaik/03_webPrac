@@ -1,30 +1,17 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- 반응형, 스크롤 효과, 클릭 효과, 마우스를 따라 움직이는 캐릭터 element
+- 진행 중인 프로젝트에서 사용하고자 샘플용으로 제작한 Intro 페이지... 컨셉이 달라져 파기
+- 스크롤 효과나 애니메이션을 한 번쯤 넣어보고 싶어서 시작하였는데 GSAP라는 라이브러리를 발견했다..! 해당 라이브러리를 이용해 조금 더 부드럽게 작동할 수 있도록 수정해볼 예정.
 
-Currently, two official plugins are available:
+#### 클릭 효과, 마우스를 따라 움직이는 캐릭터 element
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<img src="README.assets/movingEyes.gif" width="500" />
 
-## Expanding the ESLint configuration
+#### 스크롤 시 아래에 고정되는 캐릭터, 변경되는 대사, 사라지는 카드
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<img src="README.assets/scroll.gif" width="500" />
 
-- Configure the top-level `parserOptions` property like this:
+#### 반응형 지원
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+<img src="README.assets/scrollResponsive.gif" width="300" />

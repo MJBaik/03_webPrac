@@ -6,6 +6,11 @@ export const Global = createGlobalStyle`
     margin: 0;
     background-color: ${(props) => props.theme.env.bgColor};
     color: ${(props) => props.theme.env.fontColor};
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
   }
 
   div {

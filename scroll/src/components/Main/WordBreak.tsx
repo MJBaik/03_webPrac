@@ -15,9 +15,9 @@ function WordBreak({ setIsS1End }: Props) {
   );
   const now = useRef(0);
 
+  // 스크롤 내릴 때마다 단어 색칠
   const wheelHandler = (e: WheelEvent) => {
     if (!wordRef.current) return;
-
     if (e.deltaY > 0) {
       e.preventDefault();
       wordRef.current.children[now.current].classList.add("read");

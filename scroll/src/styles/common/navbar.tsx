@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
-  color: ${(props) => props.theme.env.fontColor};
+  color: white;
   font-weight: 100;
   margin: 0 10px;
 `;

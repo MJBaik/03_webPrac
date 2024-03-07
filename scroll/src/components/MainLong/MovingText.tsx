@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Section5 } from "../../styles/MainLong/Page";
-import Ocean from "../../assets/images/ocean.jfif";
 
 type Props = {
   setSectionNow: React.Dispatch<React.SetStateAction<number>>;
@@ -46,7 +45,7 @@ function MovingText({ setSectionNow, sectionNow }: Props) {
         From Right To Left
       </div>
       <img
-        src={Ocean}
+        src="https://images.pexels.com/photos/20333851/pexels-photo-20333851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         className="movingImg"
         style={{ opacity: scrolled * 3 }}
       />

@@ -49,9 +49,10 @@ export const Outer = styled.div`
   background-color: ${(props) => props.theme.color.point};
   height: fit-content;
 
+  /* 마우스 클릭 효과 */
   div.clickEffect {
     font-family: ${(props) => props.theme.font.jptitle};
-    font-size: 36pt;
+    font-size: 52pt;
     position: fixed;
     z-index: 1000;
     opacity: 0;
@@ -112,6 +113,7 @@ export const HeaderBox = styled.div`
     -webkit-user-select: none;
   }
 
+  /* 말풍선 (흰색) */
   div.coma {
     position: absolute;
     width: 100%;
@@ -140,6 +142,7 @@ export const HeaderBox = styled.div`
     }
   }
 
+  /* 말풍선 배경 */
   div.coma2 {
     position: absolute;
     width: 100%;
@@ -157,19 +160,23 @@ export const HeaderBox = styled.div`
 
   div.kr {
     font-family: ${(props) => props.theme.font.krtitle};
-    font-size: 64pt;
+    font-size: 84pt;
     color: black;
     word-break: keep-all;
     width: 60vw;
 
+    @media screen and (max-width: 1600px) {
+      font-size: 72pt;
+    }
+
     @media screen and (max-width: 1000px) {
-      width: 300px;
-      font-size: 48pt;
+      width: 400px;
+      font-size: 64pt;
     }
 
     @media screen and (max-width: 500px) {
-      width: 300px;
-      font-size: 30pt;
+      width: 400px;
+      font-size: 38pt;
       white-space: break-spaces;
       text-align: center;
     }
@@ -210,7 +217,7 @@ export const Character = styled.div`
   div.inner {
     position: relative;
     width: 60vw;
-    height: 60vh;
+    height: 50vh;
     min-width: 600px;
     min-height: 700px;
 
@@ -224,6 +231,7 @@ export const Character = styled.div`
       bottom: 0;
     }
 
+    /* 흰자 */
     div.eye {
       width: 100px;
       height: 100px;
@@ -245,6 +253,7 @@ export const Character = styled.div`
         bottom: 40%;
       }
 
+      /* 동공 */
       div.eyeball {
         position: relative;
         width: 80px;
