@@ -16,6 +16,7 @@ export const kor =
     ""
   );
 
+// 막대기 변환 - 예시: ろーどー -> ろうどう
 const changeStick = (prev: string) => {
   let prevnum = 0;
   const letters = [
@@ -61,6 +62,7 @@ export const kanaToHira = (word: string) => {
   return changed;
 };
 
+// 한글 발음 합치기 (예: 시요우 -> 쇼우)
 const changeLetter = (letter: string, arr: string[]) => {
   switch (letter) {
     case "ゃ": {
@@ -119,6 +121,7 @@ const changeLetter = (letter: string, arr: string[]) => {
   }
 };
 
+// 한글로 변환
 export const changeToKor = (text: string) => {
   let changed: string[] = [];
   const char = kanaToHira(text);

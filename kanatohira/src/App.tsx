@@ -71,6 +71,7 @@ function App() {
   const [isyomion, setISyomion] = useState(false);
   const [kor, setKor] = useState<string[][]>([]);
 
+  // 문장 끝을 찾아서 한 배열로...
   const set = () => {
     const arr = [];
     let si = 0;
@@ -117,6 +118,7 @@ function App() {
     newws.forEach((text) => {
       const temp: string[] = [];
 
+      // 문장을 한글로 변환
       text.forEach((word) => {
         if (word[4].startsWith("補助記号")) {
           temp.push(word[0]);
@@ -141,8 +143,9 @@ function App() {
         한자
       </button>
       <Wrapper>
-        <h1>오늘의 어쩌구</h1>
+        <h1>오늘의 뉴스</h1>
 
+        {/* 낱말 모달 */}
         {isModalOn && (
           <Modal style={{ top: modalXy.y, left: modalXy.x }}>
             <button onClick={() => setIsModalOn(false)}>닫기</button>
@@ -159,6 +162,7 @@ function App() {
                     key={idx}
                     onClick={(e) => {
                       if (
+                        // 클릭 시 명사/일반동사/형용사는 모달 출력
                         each[4].startsWith("名詞") ||
                         each[4].startsWith("動詞-一般") ||
                         each[4].startsWith("形容詞")
@@ -169,6 +173,8 @@ function App() {
                       }
                     }}
                   >
+                    {/* 읽는 방법 출력 */}
+                    {/* 유니코드로 변경 필요 */}
                     {hiragana.indexOf(each[0].charAt(0)) == -1 &&
                     katakana.indexOf(each[0].charAt(0)) == -1 &&
                     nums.indexOf(each[0].charAt(0)) == -1 ? (
@@ -192,6 +198,7 @@ function App() {
                   </Word>
                 );
               })}
+              {/* 한글로 변환된 문장 */}
               <div className="kor">
                 {kor[id] == undefined
                   ? null
