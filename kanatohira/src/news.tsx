@@ -1,141 +1,110 @@
-export const hiragana =
-  "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんぁぃぅぇぉっゃゅょがぎぐげござじずぜぞだじづでどばびぶべぼぱぴぷぺぽー".split(
-    ""
-  );
-export const katakana =
-  "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョガギグゲゴザジズゼゾダジヅデドバビブベボパピプペポー".split(
-    ""
-  );
-export const nums =
-  "0123456789０１２３４５６７８９!@#$％^&*()_+=-「」｛｝【】[]：.、。".split(
-    ""
-  );
+import { hiratokor } from "./temp";
 
-export const kor =
-  "아이우에오카키쿠케코사시스세소타치츠테토나니누네노하히후헤호마미무메모야유요라리루레로와오응아이우에오츠야유요가기구게고자지즈제조다지즈데도바비부베보파피푸페포".split(
-    ""
-  );
+// export const hiragana =
+//   "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんぁぃぅぇぉっゃゅょがぎぐげござじずぜぞだじづでどばびぶべぼぱぴぷぺぽー".split(
+//     ""
+//   );
+// export const katakana =
+//   "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョガギグゲゴザジズゼゾダジヅデドバビブベボパピプペポー".split(
+//     ""
+//   );
+// export const nums =
+//   "0123456789０１２３４５６７８９!@#$％^&*()_+=-「」｛｝【】[]：.、。".split(
+//     ""
+//   );
+
+// export const kor =
+//   "아이우에오카키쿠케코사시스세소타치츠테토나니누네노하히후헤호마미무메모야유요라리루레로와오응아이우에오츠야유요가기구게고자지즈제조다지즈데도바비부베보파피푸페포".split(
+//     ""
+//   );
 
 // 막대기 변환 - 예시: ろーどー -> ろうどう
 const changeStick = (prev: string) => {
-  let prevnum = 0;
-  const letters = [
-    "あかがさざただなはばぱまやらわ".split(""),
-    "いきぎしじちぢにひびぴみりえけげせぜてでねへべぺめれ".split(""),
-    "うくぐすずつづぬふぶぷむゆよるおこごそぞとどのほぼぽもろょゅ".split(""),
-  ];
+  const aGyou = /[アカガサザタダナハバパマヤラワ]/;
+  const ieGyou = /[イキギシジチヂニヒビピミリエケゲセゼテデネヘベペメレ]/;
+  const uGyou =
+    /[ウクグスズツヅヌフブプムユヨルオコゴソゾトドノホボポモロョュ]/;
 
-  letters.forEach((each, idx) => {
-    if (each.indexOf(prev) > -1) {
-      prevnum = idx;
-    }
-  });
-
-  switch (prevnum) {
-    case 0:
-      return "あ";
-    case 1:
-      return "い";
-    case 2:
-      return "う";
-    default:
-      return "";
+  if (aGyou.test(prev)) {
+    return "あ";
+  } else if (ieGyou.test(prev)) {
+    return "い";
+  } else if (uGyou.test(prev)) {
+    return "う";
+  } else {
+    return "";
   }
 };
 
 // 가타카나를 히라가나로 변환
 export const kanaToHira = (word: string) => {
-  const changed: string[] = [];
   if (!word) return;
 
-  for (let i = 0; i < word.length; i++) {
-    const char = word.charAt(i);
-    let hira =
-      12449 <= char.charCodeAt(0) && 12538 >= char.charCodeAt(0)
-        ? String.fromCharCode(char.charCodeAt(0) - 96)
-        : char;
-
-    if (char == "ー") hira = changeStick(changed[changed.length - 1]);
-
-    changed.push(hira);
-  }
-  return changed;
+  return word
+    .replace(/[ァ-ヴ]/g, (matched) =>
+      String.fromCharCode(matched.charCodeAt(0) - 96)
+    )
+    .replace(/ー/g, (matched, index) => changeStick(word.charAt(index - 1)));
 };
 
 // 한글 발음 합치기 (예: 시요우 -> 쇼우)
-const changeLetter = (letter: string, arr: string[]) => {
+const changeLetter = (letter: string, prev: number) => {
   switch (letter) {
     case "ゃ": {
-      const prev = arr[arr.length - 1].charCodeAt(0);
       const newlet = String.fromCharCode(prev - 504);
-      arr.pop();
-      arr.push(newlet);
-      return arr;
+      console.log(newlet);
+      return newlet;
     }
     case "ゅ": {
-      const prev = arr[arr.length - 1].charCodeAt(0);
       const newlet = String.fromCharCode(prev - 84);
-      arr.pop();
-      arr.push(newlet);
-      return arr;
+      return newlet;
     }
     case "ょ": {
-      const prev = arr[arr.length - 1].charCodeAt(0);
+      console.log(letter, prev);
       const newlet = String.fromCharCode(prev - 224);
-      arr.pop();
-      arr.push(newlet);
-      return arr;
+      return newlet;
     }
-    case "ん": {
-      if ("すずつづ".split("").indexOf(arr[arr.length - 1]) > -1) {
-        const idx = "스즈즈츠".split("").indexOf(arr[arr.length - 1]);
-        const word = "스즈즈츠".split("")[idx];
-        const prev = word.charCodeAt(0);
-        const newlet = String.fromCharCode(prev + 4);
-        arr.pop();
-        arr.push(newlet);
-      } else {
-        const prev = arr[arr.length - 1].charCodeAt(0);
-        const newlet = String.fromCharCode(prev + 4);
-        arr.pop();
-        arr.push(newlet);
-      }
-      return arr;
-    }
+    // case "ん": {
+    //   if (/["すずつづ]/.test(letter)) {
+    //     const idx = "스즈즈츠".split("").indexOf(String.fromCharCode(prev));
+    //     const word = "스즈즈츠".split("")[idx];
+    //     const newlet = String.fromCharCode(word.charCodeAt(0) + 4);
+    //   } else {
+    //     const newlet = String.fromCharCode(word.charCodeAt(0) + 4);
+    //   }
+    //   return newlet;
+    // }
     case "っ": {
-      const prev = arr[arr.length - 1].charCodeAt(0);
       const newlet = String.fromCharCode(prev + 19);
-      arr.pop();
-      arr.push(newlet);
-      return arr;
+      return newlet;
     }
     case "ぃ": {
-      const prev = arr[arr.length - 1].charCodeAt(0);
       const newlet = String.fromCharCode(prev + 420);
-      arr.pop();
-      arr.push(newlet);
-      return arr;
+      return newlet;
     }
     default:
-      return arr;
+      return letter;
   }
 };
 
 // 한글로 변환
 export const changeToKor = (text: string) => {
-  let changed: string[] = [];
+  const changed: string[] = [];
   const char = kanaToHira(text);
 
   if (!char) return;
   for (let i = 0; i < char.length; i++) {
-    if ("ゃゅょんぃっ".split("").indexOf(char[i]) > -1) {
-      changed = changeLetter(char[i], changed);
+    const target = char[i];
+    if ("ゃゅょんぃっ".split("").indexOf(target) > -1) {
+      const korean = changeLetter(target, hiratokor[char[i - 1]].charCodeAt(0));
+      changed.pop();
+      changed.push(korean);
     } else {
-      const idx = hiragana.indexOf(char[i]);
-      const korean = kor[idx];
+      const korean = hiratokor[target];
       if (korean == undefined) return [text];
       changed.push(korean);
     }
   }
+  console.log(changed);
   return changed;
 };

@@ -71,6 +71,8 @@ function App() {
   const [isyomion, setISyomion] = useState(false);
   const [kor, setKor] = useState<string[][]>([]);
 
+  // console.log("1.우땨땨 2.우하하 3.크하하 4.푸하하 ".match(/\d+\.(.*?)\s/g));
+
   // 문장 끝을 찾아서 한 배열로...
   const set = () => {
     const arr = [];
@@ -99,16 +101,9 @@ function App() {
     //     if (data.length > 1) res.push(data);
     //   });
 
-    news.split("],[").forEach((each) =>
-      res.push(
-        each
-          .split(",")
-          .map((ret) => ret.replace(/ /g, ""))
-          .map((ret) => ret.replace(/'/g, ""))
-          .map((ret) => ret.replace(/\[/g, ""))
-          .map((ret) => ret.replace(/\]/g, ""))
-      )
-    );
+    news.split("],[").forEach((each) => {
+      res.push(each.split(",").map((ret) => ret.replace(/[\s'[\]]/g, "")));
+    });
 
     setnewws(set());
   }, []);
@@ -179,7 +174,7 @@ function App() {
                     katakana.indexOf(each[0].charAt(0)) == -1 &&
                     nums.indexOf(each[0].charAt(0)) == -1 ? (
                       <div className={isyomion ? "read" : "read none"}>
-                        {kanaToHira(each[1])?.join("")}
+                        {kanaToHira(each[1])}
                       </div>
                     ) : (
                       <div className={isyomion ? "read" : "read none"}></div>
